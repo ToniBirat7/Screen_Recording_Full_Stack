@@ -21,3 +21,9 @@ The project we are currently working on is a Full Stack Application just like th
 **Typescript** - A typed superset of JavaScript that compiles to plain JavaScript.
 
 **bunny.net** - A cloud platform for deploying and scaling web applications with ease.
+
+## **TL;DR**
+
+<hr>
+
+Also, we've the `Notes` in the `Notes.ipynb` file which contains special notes about understanding the working of `NextJs` in real world.
