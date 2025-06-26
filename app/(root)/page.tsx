@@ -1,7 +1,13 @@
+import Header from "@/components/Header";
 import React from "react";
 
 const Page = () => {
-  return <div>Welcome to the Loom Clone</div>;
+  return (
+    <main className="wrapper page">
+      <h1 className="text-2xl font-karla">Welcome to the ScreenCast</h1>
+      <Header />
+    </main>
+  );
 };
 
 export default Page;

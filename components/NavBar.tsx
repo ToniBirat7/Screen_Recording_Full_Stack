@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+const user = {}; // Session data for the user
+
 const NavBar = () => {
   return (
     <header className="navbar">
@@ -15,6 +17,29 @@ const NavBar = () => {
           />
           <h1>ScreenCast</h1>
         </Link>
+
+        {user && (
+          <figure>
+            <button>
+              <Image
+                src="/assets/images/dummy.jpg"
+                alt="User"
+                width={36}
+                height={36}
+                className="rounded-full aspect-square"
+              />
+            </button>
+            <button className="cursor-pointer">
+              <Image
+                src="/assets/icons/logout.svg"
+                alt="Logout"
+                width={24}
+                height={24}
+                className="rotate-180"
+              />
+            </button>
+          </figure>
+        )}
       </nav>
     </header>
   );
