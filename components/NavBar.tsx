@@ -9,37 +9,7 @@ const NavBar = () => {
     <header className="navbar">
       <nav>
         <Link href="/">
-          <Image
-            src="/assets/icons/logo.svg"
-            alt="Logo"
-            width={32}
-            height={32}
-          />
-          <h1>ScreenCast</h1>
         </Link>
-
-        {user && (
-          <figure>
-            <button>
-              <Image
-                src="/assets/images/dummy.jpg"
-                alt="User"
-                width={36}
-                height={36}
-                className="rounded-full aspect-square"
-              />
-            </button>
-            <button className="cursor-pointer">
-              <Image
-                src="/assets/icons/logout.svg"
-                alt="Logout"
-                width={24}
-                height={24}
-                className="rotate-180"
-              />
-            </button>
-          </figure>
-        )}
       </nav>
     </header>
   );
