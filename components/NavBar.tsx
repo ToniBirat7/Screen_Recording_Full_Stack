@@ -17,7 +17,6 @@ const NavBar = () => {
           ></Image>
           <h1>SnapCast</h1>
         </Link>
-
         {user && (
           <figure>
             <button>
