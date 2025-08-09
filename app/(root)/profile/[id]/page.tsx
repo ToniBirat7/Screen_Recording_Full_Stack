@@ -4,7 +4,7 @@ import React from "react";
 const page = async ({ params }: ParamsWithSearch) => {
   const { id } = await params;
   return (
-    <div>
+    <div className="wrapper page">
       {/* Reuse the Header Component */}
       <Header
         subHeader="birat@gmai.com"
