@@ -23,16 +23,16 @@ const DropdownList = () => {
             src="/assets/icons/arrow-down.svg"
             width={14}
             height={14}
-            alt="Down Arrpw"
+            alt="Down Arrow"
           ></Image>
         </div>
 
-        {/* Open the DropDown Unordered List*/}
+        {/* Open the DropDown Unordered List */}
 
         {isOpen && (
           <ul className="dropdown">
             {["Most Recent", "Most Liked"].map((option) => (
-              <li key={option} className="list-item">
+              <li key={option} className="list-item text-center">
                 {option}
               </li>
             ))}
