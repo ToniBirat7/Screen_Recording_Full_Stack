@@ -52,6 +52,24 @@ const Header = ({ subHeader, title, userImg }: SharedHeaderProps) => {
           </div>
         </aside>
       </section>
+
+      {/* Filter Section */}
+      <section className="search-filter">
+        <div className="search">
+          <input
+            type="text"
+            placeholder="Search for Vides, Tags, Folders .."
+          ></input>
+          <Image
+            src="/assets/icons/search.svg"
+            alt="Search"
+            width={16}
+            height={16}
+          ></Image>
+        </div>
+        {/* DropdownList */}
+        {`<DropdownList />`}
+      </section>
     </header>
   );
 };
