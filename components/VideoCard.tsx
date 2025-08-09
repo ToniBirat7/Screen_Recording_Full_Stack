@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
@@ -56,6 +58,19 @@ const VideoCard = ({
           })}
         </h2>
       </article>
+
+      <button className="copy-btn">
+        <Image
+          src="/assets/icons/link.svg"
+          alt="copy"
+          width={18}
+          height={18}
+        ></Image>
+      </button>
+
+      {duration && (
+        <div className="duration">{Math.ceil(duration / 60)} min</div>
+      )}
     </Link>
   );
 };
