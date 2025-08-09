@@ -1,10 +1,13 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 const user = {}; // Session data for the user
 
 const NavBar = () => {
+  const router = useRouter();
   return (
     <header className="navbar">
       <nav>
@@ -19,7 +22,7 @@ const NavBar = () => {
         </Link>
         {user && (
           <figure>
-            <button>
+            <button onClick={() => router.push("/profile/123")}>
               <Image
                 src="/assets/images/dummy.jpg"
                 width={36}
