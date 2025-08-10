@@ -7,12 +7,12 @@ const page = async ({ params }: ParamsWithSearch) => {
     <div className="wrapper page">
       {/* Reuse the Header Component */}
       <Header
-        subHeader="birat@gmai.com"
+        subHeader="birat@gmail.com"
         title="Birat | Geek Coder"
         userImg="/assets/images/dummy.jpg"
       ></Header>
-      USER ID : {id}
-      <h1 className="text-2xl font-karla"></h1>
+
+      {/* Video Card for Profile */}
     </div>
   );
 };
