@@ -27,6 +27,10 @@ const page = () => {
                 ></Image>
               ))}
             </figure>
+            <p>
+              SnapCast makes screen recording easy. From quick walkthroughs to
+              full presentations, it's fast, smoot, and shreable in seconds
+            </p>
           </section>
         </div>
       </aside>
