@@ -31,9 +31,51 @@ const page = () => {
               SnapCast makes screen recording easy. From quick walkthroughs to
               full presentations, it's fast, smoot, and shreable in seconds
             </p>
+
+            <article>
+              <Image
+                src="/assets/images/jason.png"
+                alt="jason"
+                width={64}
+                height={64}
+                className="rounded-full"
+              ></Image>
+              <div>
+                <h2>Birat Gautam</h2>
+                <p>Product Designer, NovaByte</p>
+              </div>
+            </article>
           </section>
         </div>
+        <p>SnapCast {new Date().getFullYear()}</p>
       </aside>
+      <aside className="google-sign-in">
+        <section>
+          <Link href="/">
+            <Image
+              src="/assets/icons/logo.svg"
+              alt="logo"
+              width={40}
+              height={40}
+            ></Image>
+            <h1>SnapCast</h1>
+          </Link>
+          <p>
+            Create and Share Your Very First <span>SnapCast Video</span> in no
+            time!
+          </p>
+          <button>
+            <Image
+              src="/assets/icons/google.svg"
+              alt="google"
+              width={22}
+              height={22}
+            ></Image>
+            <span>Sign in With Google</span>
+          </button>
+        </section>
+      </aside>
+      <div className="overlay"></div>
     </main>
   );
 };

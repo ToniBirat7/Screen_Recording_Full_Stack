@@ -31,7 +31,10 @@ const NavBar = () => {
                 className="rounded-full aspect-square"
               ></Image>
             </button>
-            <button className="cursor-pointer">
+            <button
+              className="cursor-pointer"
+              onClick={() => router.push("/sign-in/")}
+            >
               <Image
                 src="/assets/icons/logout.svg"
                 width={24}
