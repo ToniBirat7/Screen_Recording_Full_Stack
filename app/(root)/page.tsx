@@ -11,9 +11,11 @@ const Page = () => {
 
       {/* Dummy Video Card */}
 
-      {dummyCards.map((card) => (
-        <VideoCard key={card.id} {...card}></VideoCard>
-      ))}
+      <section className="video-grid">
+        {dummyCards.map((card) => (
+          <VideoCard key={card.id} {...card}></VideoCard>
+        ))}
+      </section>
     </main>
   );
 };

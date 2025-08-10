@@ -16,11 +16,9 @@ const page = async ({ params }: ParamsWithSearch) => {
 
       {/* Video Card for Profile */}
 
-      <section className="video-grid">
-        {dummyCards.map((card) => (
-          <VideoCard key={card.id} {...card}></VideoCard>
-        ))}
-      </section>
+      {dummyCards.map((card) => (
+        <VideoCard key={card.id} {...card}></VideoCard>
+      ))}
     </div>
   );
 };

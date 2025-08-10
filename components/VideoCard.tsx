@@ -4,6 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 
+interface VideoCardProps {
+  id: string;
+  title: string;
+  thumbnail: string;
+  userImg: string;
+  username: string;
+  createdAt: Date;
+  views: number;
+  visibility: string;
+  duration?: number;
+}
+
 const VideoCard = ({
   id,
   title,
@@ -14,7 +26,7 @@ const VideoCard = ({
   views,
   visibility,
   duration,
-}) => {
+}: VideoCardProps) => {
   return (
     <Link href={`/video${id}`} className="video-card">
       <Image
@@ -41,7 +53,7 @@ const VideoCard = ({
           </figure>
           <aside>
             <Image
-              src="assets/icons/eye.svg"
+              src="/assets/icons/eye.svg"
               alt="views"
               width={16}
               height={16}
