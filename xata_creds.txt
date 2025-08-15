@@ -1,3 +1,0 @@
-XATA_API_KEY=xau_iCnCNS00pp4ZHL1o79oIkAiYx4fRM41w
-DATABASE_URL_POSTGRES=postgresql://tf45ml:xau_iCnCNS00pp4ZHL1o79oIkAiYx4fRM41w@us-east-1.sql.xata.sh/jsm_snapcast:main?sslmode=require
-DATABASE_URL=https://Birat-Gautam-s-workspace-tf45ml.us-east-1.xata.sh/db/jsm_snapcast:main
