@@ -70,6 +70,7 @@ export const verification = pgTable("verification", {
   ),
 });
 
+// All the schema for Tables Related to Auth
 export const schema = {
   user,
   session,
