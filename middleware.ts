@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "./lib/auth";
+import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
 // Middelware Function
@@ -22,5 +22,5 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 // Middleware Routes
 export const config = {
   // ReGex for Routes that we want the middleware to be applied
-  matcher: [],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|sign-in|assets).*)"],
 };
