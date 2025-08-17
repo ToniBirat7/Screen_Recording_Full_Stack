@@ -6,9 +6,14 @@ import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 
 const page = () => {
+  // Handle Signin
   const handleSignIn = async () => {
-    return await authClient.signIn.social({ provider: "google" });
+    return await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
   };
+
   return (
     <main className="sign-in">
       <aside className="testimonial">
