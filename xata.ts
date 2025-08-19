@@ -6,6 +6,7 @@ import type {
   XataRecord,
 } from "@xata.io/client";
 
+// Full table defintions with all columns
 const tables = [
   {
     name: "account",
@@ -373,7 +374,7 @@ const defaultOptions = {
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {
   constructor(options?: BaseClientOptions) {
-    super({ ...defaultOptions, ...options }, tables);
+    super({ ...defaultOptions, ...options }, tables); // Tanle passed to Client
   }
 }
 
