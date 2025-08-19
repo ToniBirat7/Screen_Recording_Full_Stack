@@ -8,6 +8,6 @@ export default defineConfig({
   out: "./drizzle/migrations", // Output Migration Path
   dialect: "postgresql", // Database Type
   dbCredentials: {
-    url: process.env.DATABASE_URL_POSTGRES!, // Config loads with dotenv packagae
+    url: process.env.DATABASE_URL_POSTGRES!, // PostgreSQL connection string
   },
 });
