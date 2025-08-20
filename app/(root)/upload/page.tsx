@@ -38,8 +38,8 @@ const page = () => {
           id="Title"
           label="Title"
           placeholder="Enter a clear and concise video title"
-          value={}
-          onChange={}
+          value={formData.title}
+          onChange={handleInputChange}
         />
         <FileInput />
       </form>
