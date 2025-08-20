@@ -34,9 +34,18 @@ const page = () => {
       {/* Create the Form to Handle Video Upload */}
 
       <form className="rounded-20 shadow-10 gap-6 w-full flex flex-col px-5 py-7.5">
-        {/* FormField Component */}
+        {/* First FormField Component */}
+
         <FormField
           id="Title"
+          label="Title"
+          placeholder="Enter a clear and concise video title"
+          value={formData.title}
+          onChange={handleInputChange}
+        />
+
+        <FormField
+          id="Description"
           label="Title"
           placeholder="Enter a clear and concise video title"
           value={formData.title}
