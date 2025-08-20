@@ -1,4 +1,5 @@
 import { string } from "better-auth";
+import { phoneNumber } from "better-auth/plugins";
 import React from "react";
 
 const FormField = ({
@@ -12,13 +13,19 @@ const FormField = ({
   options = [],
 }: FormFieldProps) => {
   // Dynamic Internal Component to Render the Input Filed Based on Type
-  const InputToRender = ({ type }: { type: string }) => {
+  const InputToRender = ({
+    type,
+    pHolder,
+  }: {
+    type: string;
+    pHolder: string;
+  }) => {
     if (type === "textarea") {
-      return <textarea />;
+      return <textarea placeholder={pHolder} />;
     } else if (type === "select") {
       return <select />;
     } else {
-      return <input />;
+      return <input placeholder={pHolder} />;
     }
   };
 
@@ -28,8 +35,7 @@ const FormField = ({
 
       {/* Based on the Type of Input Field i.e. as prop
       we will create a Dynamic Internal Component that returns the related input element */}
-
-      <InputToRender type={as} />
+      <InputToRender type={as} pHolder={placeholder || ""} />
     </div>
   );
 };

@@ -46,9 +46,10 @@ const page = () => {
 
         <FormField
           id="Description"
-          label="Title"
-          placeholder="Enter a clear and concise video title"
-          value={formData.title}
+          label="Description"
+          placeholder="Describe what this video is about"
+          value={formData.description}
+          as="textarea"
           onChange={handleInputChange}
         />
         <FileInput />
