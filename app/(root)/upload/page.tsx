@@ -43,6 +43,8 @@ const page = () => {
           onChange={handleInputChange}
         />
 
+        {/* Second FormField Component */}
+
         <FormField
           id="Description"
           label="Description"
@@ -51,7 +53,26 @@ const page = () => {
           as="textarea"
           onChange={handleInputChange}
         />
+
+        {/* First File Input for Video */}
         <FileInput />
+
+        {/* Second File Input for Thumbnail */}
+        <FileInput />
+
+        {/* Visibility for Private and Public */}
+
+        <FormField
+          id="visibility"
+          label="Visibility"
+          value={formData.visibility}
+          as="select"
+          options={[
+            { value: "public", label: "Public" },
+            { value: "private", label: "Private" },
+          ]}
+          onChange={handleInputChange}
+        />
       </form>
     </div>
   );

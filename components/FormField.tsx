@@ -21,11 +21,27 @@ const FormField = ({
     pHolder: string;
   }) => {
     if (type === "textarea") {
-      return <textarea placeholder={pHolder} />;
+      return (
+        <textarea
+          placeholder={pHolder}
+          id={id}
+          name={id}
+          value={value}
+          onChange={onChange}
+        />
+      );
     } else if (type === "select") {
-      return <select />;
+      return <select id={id} name={id} value={value} onChange={onChange} />;
     } else {
-      return <input placeholder={pHolder} />;
+      return (
+        <input
+          placeholder={pHolder}
+          id={id}
+          name={id}
+          value={value}
+          onChange={onChange}
+        />
+      );
     }
   };
 
