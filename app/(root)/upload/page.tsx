@@ -22,6 +22,12 @@ const page = () => {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  // State for the Video
+  const video = {};
+
+  // State for thumbnail
+  const thumbnail = {};
+
   return (
     <div className="wrapper-md upload-page">
       <h1>Upload a Video</h1>
@@ -36,7 +42,7 @@ const page = () => {
         {/* First FormField Component */}
 
         <FormField
-          id="Title"
+          id="title"
           label="Title"
           placeholder="Enter a clear and concise video title"
           value={formData.title}
@@ -46,7 +52,7 @@ const page = () => {
         {/* Second FormField Component */}
 
         <FormField
-          id="Description"
+          id="description"
           label="Description"
           placeholder="Describe what this video is about"
           value={formData.description}
@@ -55,10 +61,30 @@ const page = () => {
         />
 
         {/* First File Input for Video */}
-        <FileInput />
+        <FileInput
+          id="video"
+          label="Video"
+          accept="video/*"
+          file={video.file}
+          previewURL={video.previewURL}
+          inputRef={video.inputRef}
+          onChange={video.handleFileChange}
+          onReset={video.resetFile}
+          type="video"
+        />
 
         {/* Second File Input for Thumbnail */}
-        <FileInput />
+        <FileInput
+          id="thumbnail"
+          label="Thumbnail"
+          accept="image/*"
+          file={thumbnail.file}
+          previewURL={thumbnail.previewURL}
+          inputRef={thumbnail.inputRef}
+          onChange={thumbnail.handleFileChange}
+          onReset={thumbnail.resetFile}
+          type="image"
+        />
 
         {/* Visibility for Private and Public */}
 
