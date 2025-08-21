@@ -31,7 +31,15 @@ const FormField = ({
         />
       );
     } else if (type === "select") {
-      return <select id={id} name={id} value={value} onChange={onChange} />;
+      return (
+        <select id={id} name={id} value={value} onChange={onChange}>
+          {options.map(({ label, value }) => (
+            <option key={label} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      );
     } else {
       return (
         <input
