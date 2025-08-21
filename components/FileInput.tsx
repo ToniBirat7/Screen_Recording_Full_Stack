@@ -24,15 +24,20 @@ const FileInput = ({
         onChange={onChange}
       ></input>
 
-      {/* When there is no thumbnail */}
+      {/* When there is no thumbnail, ternary operator */}
       {!previewUrl ? (
-          <figure>
-            <Image src="/assets/icons/upload.svg" alt="upload" width={24} height={24} />
-          </figure>
-        ) : (
-          <div className=""></div>
-        )
-      }
+        <figure>
+          <Image
+            src="/assets/icons/upload.svg"
+            alt="upload"
+            width={24}
+            height={24}
+          />
+          <p>Click to Upload your {id}</p>
+        </figure>
+      ) : (
+        <div className=""></div>
+      )}
     </section>
   );
 };

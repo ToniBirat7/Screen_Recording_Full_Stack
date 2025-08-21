@@ -79,7 +79,7 @@ const page = () => {
           label="Thumbnail"
           accept="image/*"
           file={thumbnail.file}
-          previewURL={thumbnail.previewURL}
+          previewUrl={thumbnail.previewUrl}
           inputRef={thumbnail.inputRef}
           onChange={thumbnail.handleFileChange}
           onReset={thumbnail.resetFile}
