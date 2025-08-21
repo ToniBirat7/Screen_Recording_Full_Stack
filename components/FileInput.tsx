@@ -26,7 +26,7 @@ const FileInput = ({
 
       {/* When there is no thumbnail, ternary operator */}
       {!previewUrl ? (
-        <figure>
+        <figure onClick={() => inputRef?.current?.click()}>
           <Image
             src="/assets/icons/upload.svg"
             alt="upload"
@@ -36,7 +36,28 @@ const FileInput = ({
           <p>Click to Upload your {id}</p>
         </figure>
       ) : (
-        <div className=""></div>
+        // If there is previewURL play it or show it
+        <div className="">
+          {type == "video" ? (
+            <video src={previewUrl} controls></video>
+          ) : (
+            <Image src={previewUrl} alt="image" fill></Image>
+          )}
+
+          {/* Button for Reset */}
+
+          <button type="button" onClick={onReset}>
+            <Image
+              src="/assets/icons/close.svg"
+              width={16}
+              height={16}
+              alt="Reset Btn"
+            ></Image>
+          </button>
+
+          {/* File Name */}
+          <p>{file?.name}</p>
+        </div>
       )}
     </section>
   );
