@@ -3,7 +3,6 @@
 import React, { ChangeEvent, use, useState } from "react";
 import FormField from "@/components/FormField";
 import FileInput from "@/components/FileInput";
-import { visibilities } from "@/constants";
 
 const page = () => {
   const [error, setError] = useState(null); // For error while uploading video
