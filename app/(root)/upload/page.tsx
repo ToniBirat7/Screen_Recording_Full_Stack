@@ -66,7 +66,7 @@ const page = () => {
           label="Video"
           accept="video/*"
           file={video.file}
-          previewURL={video.previewURL}
+          previewUrl={video.previewUrl}
           inputRef={video.inputRef}
           onChange={video.handleFileChange}
           onReset={video.resetFile}

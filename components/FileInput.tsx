@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const FileInput = ({
   id,
@@ -11,7 +12,29 @@ const FileInput = ({
   onReset,
   type,
 }: FileInputProps) => {
-  return <div>FileInput</div>;
+  return (
+    <section className="file-input">
+      <label htmlFor={id}>{label}</label>
+      <input
+        type="file"
+        id={id}
+        accept={accept}
+        ref={inputRef}
+        hidden
+        onChange={onChange}
+      ></input>
+
+      {/* When there is no thumbnail */}
+      {!previewUrl ? (
+          <figure>
+            <Image src="/assets/icons/upload.svg" alt="upload" width={24} height={24} />
+          </figure>
+        ) : (
+          <div className=""></div>
+        )
+      }
+    </section>
+  );
 };
 
 export default FileInput;
