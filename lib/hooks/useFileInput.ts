@@ -17,9 +17,14 @@ export const useFileInput = (maxSize: number) => {
 
       // If the size is valid, remove the reference to the file
       if (previewUrl) URL.revokeObjectURL(previewUrl);
+
+      // Store the file
       setFile(selectedFile);
 
+      // Create ref to file (Blob) for preview faster without converting them to base64
       const objectUrl = URL.createObjectURL(selectedFile);
+
+      // set the URL that points to the files binary data in memeory
       setPreviewUrl(objectUrl);
 
       // Duration of the Video
@@ -32,7 +37,6 @@ export const useFileInput = (maxSize: number) => {
           } else {
             setduration(0);
           }
-
           URL.revokeObjectURL(video.src);
         };
         video.src = objectUrl;
