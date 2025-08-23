@@ -1,4 +1,4 @@
-import { ChangeEvent, useReducer, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 export const useFileInput = (maxSize: number) => {
   const [file, setFile] = useState<File | null>(null); // File
@@ -8,6 +8,7 @@ export const useFileInput = (maxSize: number) => {
 
   // Function that will be called when the a File is Uploaded
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Check if we've the file
     if (e.target.files?.[0]) {
       const selectedFile = e.target.files[0]; // Get the File
 
