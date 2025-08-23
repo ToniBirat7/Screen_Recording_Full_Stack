@@ -16,7 +16,6 @@ export const useFileInput = (maxSize: number) => {
       if (selectedFile.size > maxSize) return;
 
       // If the size is valid, remove the reference to the file
-
       if (previewUrl) URL.revokeObjectURL(previewUrl);
       setFile(selectedFile);
 
