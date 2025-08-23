@@ -1,8 +1,8 @@
 import { ChangeEvent, useRef, useState } from "react";
 
 export const useFileInput = (maxSize: number) => {
-  const [file, setFile] = useState<File | null>(null); // File
-  const [previewUrl, setPreviewUrl] = useState(""); // Url
+  const [file, setFile] = useState<File | null>(null); // Hold File Object
+  const [previewUrl, setPreviewUrl] = useState(""); // Hold a Blob URL Created by URL.createObjectURL()
   const [duration, setduration] = useState(0); // Duration
   const inputRef = useRef(null); // Ref for the Input
 
@@ -37,9 +37,8 @@ export const useFileInput = (maxSize: number) => {
           } else {
             setduration(0);
           }
-          URL.revokeObjectURL(video.src);
         };
-        video.src = objectUrl;
+        video.src = objectUrl; // Set the source to Blob URL, which triggers preload followed by onloadedmetadata
       }
     }
   };
