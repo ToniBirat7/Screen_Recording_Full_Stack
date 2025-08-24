@@ -43,12 +43,23 @@ export const useFileInput = (maxSize: number) => {
     }
   };
 
+  // Reset the file
   const resetFile = () => {
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
-    setFile(null);
-    setPreviewUrl("");
-    setduration(0);
+    if (previewUrl) URL.revokeObjectURL(previewUrl); // Remove the reference to the previous file
 
+    setFile(null); // Empty the file
+    setPreviewUrl(""); // Empty the URL
+    setduration(0); // Duration is Zero
+
+    // Clear the Reference to the Input if exists
     if (inputRef.current) inputRef.current.value = "";
+  };
+
+  // Return from Hook
+  return {
+    file,
+    previewUrl,
+    duration,
+    inputRef,
   };
 };
