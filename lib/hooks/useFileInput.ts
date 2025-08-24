@@ -35,6 +35,7 @@ export const useFileInput = (maxSize: number) => {
           if (isFinite(video.duration) && video.duration > 0) {
             setduration(Math.round(video.duration));
           } else {
+            // No duration for thumbnail
             setduration(0);
           }
         };
