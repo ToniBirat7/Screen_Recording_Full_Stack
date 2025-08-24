@@ -12,54 +12,43 @@ const FormField = ({
   as = "input",
   options = [],
 }: FormFieldProps) => {
-  // Dynamic Internal Component to Render the Input Filed Based on Type
-  const InputToRender = ({
-    type,
-    pHolder,
-  }: {
-    type: string;
-    pHolder: string;
-  }) => {
-    if (type === "textarea") {
-      return (
-        <textarea
-          placeholder={pHolder}
-          id={id}
-          name={id}
-          value={value}
-          onChange={onChange}
-        />
-      );
-    } else if (type === "select") {
-      return (
-        <select id={id} name={id} value={value} onChange={onChange}>
-          {options.map(({ label, value }) => (
-            <option key={label} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      );
-    } else {
-      return (
-        <input
-          placeholder={pHolder}
-          id={id}
-          name={id}
-          value={value}
-          onChange={onChange}
-        />
-      );
-    }
-  };
+  let inputElement = null;
+
+  if (as === "textarea") {
+    inputElement = (
+      <textarea
+        placeholder={placeholder}
+        id={id}
+        name={id}
+        value={value}
+        onChange={onChange}
+      />
+    );
+  } else if (as === "select") {
+    inputElement = (
+      <select id={id} name={id} value={value} onChange={onChange}>
+        {options.map(({ label, value }) => (
+          <option key={label} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
+    );
+  } else {
+    inputElement = (
+      <input
+        placeholder={placeholder}
+        id={id}
+        name={id}
+        value={value}
+        onChange={onChange}
+      />
+    );
+  }
 
   return (
     <div className="form-field">
       <label htmlFor={id}>{label}</label>
-
-      {/* Based on the Type of Input Field i.e. as prop
-      we will create a Dynamic Internal Component that returns the related input element */}
-      <InputToRender type={as} pHolder={placeholder || ""} />
     </div>
   );
 };
