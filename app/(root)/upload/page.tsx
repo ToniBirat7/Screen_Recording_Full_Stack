@@ -3,6 +3,8 @@
 import React, { ChangeEvent, use, useState } from "react";
 import FormField from "@/components/FormField";
 import FileInput from "@/components/FileInput";
+import { useFileInput } from "@/lib/hooks/useFileInput";
+import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
 
 const page = () => {
   const [error, setError] = useState(null); // For error while uploading video
@@ -23,10 +25,10 @@ const page = () => {
   };
 
   // State for the Video
-  const video = {};
+  const video = useFileInput(MAX_VIDEO_SIZE);
 
   // State for thumbnail
-  const thumbnail = {};
+  const thumbnail = useFileInput(MAX_THUMBNAIL_SIZE);
 
   return (
     <div className="wrapper-md upload-page">
