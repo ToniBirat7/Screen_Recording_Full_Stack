@@ -17,7 +17,7 @@ const page = () => {
   });
 
   // Event Handler for Change in Form Data
-  const handleInputChange = (e: ChangeEvent) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target; // Name is the name of the element and value will be changed value
 
     // Change the previous data with the latest changed data
