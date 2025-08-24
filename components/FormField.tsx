@@ -12,6 +12,7 @@ const FormField = ({
   as = "input",
   options = [],
 }: FormFieldProps) => {
+  // To decide the type of input element
   let inputElement = null;
 
   if (as === "textarea") {
@@ -49,6 +50,9 @@ const FormField = ({
   return (
     <div className="form-field">
       <label htmlFor={id}>{label}</label>
+
+      {/* Render the Dynamic Element */}
+      {inputElement}
     </div>
   );
 };
