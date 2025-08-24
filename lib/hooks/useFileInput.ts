@@ -4,7 +4,7 @@ export const useFileInput = (maxSize: number) => {
   const [file, setFile] = useState<File | null>(null); // Hold File Object
   const [previewUrl, setPreviewUrl] = useState(""); // Hold a Blob URL Created by URL.createObjectURL()
   const [duration, setduration] = useState(0); // Duration
-  const inputRef = useRef(null); // Ref for the Input
+  const inputRef = useRef<HTMLInputElement>(null); // Ref for the Input
 
   // Function that will be called when the a File is Uploaded
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,5 +41,14 @@ export const useFileInput = (maxSize: number) => {
         video.src = objectUrl; // Set the source to Blob URL, which triggers preload followed by onloadedmetadata
       }
     }
+  };
+
+  const resetFile = () => {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setFile(null);
+    setPreviewUrl("");
+    setduration(0);
+
+    if (inputRef.current) inputRef.current.value = "";
   };
 };
