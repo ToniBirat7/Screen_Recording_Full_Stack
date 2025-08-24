@@ -7,7 +7,11 @@ import { useFileInput } from "@/lib/hooks/useFileInput";
 import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
 
 const page = () => {
+  // If any error
   const [error, setError] = useState(null); // For error while uploading video
+
+  // Disable or Enable submit button
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // State for form data
   const [formData, setFormData] = useState({
@@ -101,6 +105,12 @@ const page = () => {
           ]}
           onChange={handleInputChange}
         />
+
+        {/* Submit button */}
+        <button type="submit" disabled={isSubmitting} className="submit-button">
+          {/* Btn Value */}
+          {isSubmitting ? "Uploading" : "Upload Video"}
+        </button>
       </form>
     </div>
   );

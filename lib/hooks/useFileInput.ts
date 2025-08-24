@@ -62,5 +62,7 @@ export const useFileInput = (maxSize: number) => {
     previewUrl,
     duration,
     inputRef,
+    handleFileChange,
+    resetFile,
   };
 };
