@@ -13,6 +13,11 @@ const page = () => {
   // Disable or Enable submit button
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Handle Form Submit
+  const handleSubmit = () => {
+    
+  };
+
   // State for form data
   const [formData, setFormData] = useState({
     title: "",
@@ -44,7 +49,10 @@ const page = () => {
 
       {/* Create the Form to Handle Video Upload */}
 
-      <form className="rounded-20 shadow-10 gap-6 w-full flex flex-col px-5 py-7.5">
+      <form
+        className="rounded-20 shadow-10 gap-6 w-full flex flex-col px-5 py-7.5"
+        onSubmit={handleSubmit}
+      >
         {/* First FormField Component */}
 
         <FormField
