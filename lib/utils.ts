@@ -54,5 +54,22 @@ export const apiFetch = async <T = Record<string, unknown>>(
     return true as T;
   }
 
+  // Return the uploaded data
   return await response.json();
+};
+
+// Higher order functions to handle the errors
+export const withErrorHandling = <T, A extends unknown[]>(
+  fn: (...args: A) => Promise<T>
+) => {
+  return async (...args: A): Promise<T> => {
+    try {
+      const result = await fn(...args);
+      return result;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknow error occur";
+      return errorMessage as unknown as T;
+    }
+  };
 };
