@@ -8,7 +8,7 @@ import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
 
 const page = () => {
   // If any error
-  const [error, setError] = useState("null"); // For error while uploading video
+  const [error, setError] = useState<string | null>(null); // For error while uploading video
 
   // Disable or Enable submit button
   const [isSubmitting, setIsSubmitting] = useState(false);
