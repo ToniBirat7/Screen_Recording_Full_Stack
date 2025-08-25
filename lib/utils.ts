@@ -28,10 +28,10 @@ export const updateURLParams = (
 };
 
 // Get env helper function
-export const getEnv = (key: string): string => {
-  const value = process.env[key];
-  if (!value) throw new Error(`Missing required env: ${key}`);
-  return value;
+const getEnv = (key: string): string => {
+  const v = process.env[key];
+  if (v === undefined) throw new Error(`Missing required env: ${key}`);
+  return v;
 };
 
 // API fetch helper with required Bunny CDN options
