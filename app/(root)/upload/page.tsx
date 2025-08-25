@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, use, useState } from "react";
+import React, { ChangeEvent, FormEvent, use, useState } from "react";
 import FormField from "@/components/FormField";
 import FileInput from "@/components/FileInput";
 import { useFileInput } from "@/lib/hooks/useFileInput";
@@ -8,14 +8,45 @@ import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
 
 const page = () => {
   // If any error
-  const [error, setError] = useState(null); // For error while uploading video
+  const [error, setError] = useState("null"); // For error while uploading video
 
   // Disable or Enable submit button
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Handle Form Submit
-  const handleSubmit = () => {
-    
+  const handleSubmit = async (e: FormEvent) => {
+    // Do not reload the page
+    e.preventDefault();
+
+    // Set True
+    setIsSubmitting(true);
+
+    // Try Catch for Submitting the Form
+    try {
+      // First check if video or thumbnail exists
+      if (!video.file || !thumbnail.file) {
+        setError("Please upload video and thumbnail");
+        return;
+      }
+
+      // Check for the formData
+      if (!formData.title || !formData.description) {
+        setError("Please fill in all the details");
+        return;
+      }
+
+      // After validation, finally we can proceed to uploading
+
+      // Upload video to Bunny
+      // Upload thumbnail to DB
+      // Attach the Thumbnail to the Video
+      // Create a new DB entry for the video details (metadata) i.e. (urls, data)
+    } catch (error) {
+      console.log("Error Submitting Form");
+    } finally {
+      // Finally set to False after submitting
+      setIsSubmitting(false);
+    }
   };
 
   // State for form data
