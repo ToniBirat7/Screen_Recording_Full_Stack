@@ -28,7 +28,7 @@ export const updateURLParams = (
 };
 
 // Get env helper function
-const getEnv = (key: string): string => {
+export const getEnv = (key: string): string => {
   const v = process.env[key];
   if (v === undefined) throw new Error(`Missing required env: ${key}`);
   return v;
