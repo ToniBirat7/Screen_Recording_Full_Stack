@@ -27,7 +27,7 @@ const getSessionUserId = async (): Promise<string> => {
 };
 
 // Server Actions
-// Wrap with withErrorHandling function to avoid error
+// Wrap with withErrorHandling function to avoid error for Video
 export const getVideoUploadURL = withErrorHandling(async () => {
   // Current User from Session
   await getSessionUserId();
@@ -48,5 +48,39 @@ export const getVideoUploadURL = withErrorHandling(async () => {
   // Uploaded Video URL
   const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoResponse.guid}`;
 
-  // return 
+  // return
+  return {
+    videoID: videoResponse.guid,
+    uploadUrl,
+    accessKey: ACCESS_KEY.streamAccessKey,
+  };
+});
+
+// Wrap with withErrorHandling function to avoid error for Thumbnail
+export const getThumbnailUploadURL = withErrorHandling(async () => {
+  // Current User from Session
+  await getSessionUserId();
+
+  // Api call to Bunny to upload the video
+  const videoResponse = await apiFetch(
+    `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos`,
+    {
+      method: "POST",
+      bunnyType: "stream",
+      body: {
+        title: "Temporary File",
+        collectionId: "",
+      },
+    }
+  );
+
+  // Uploaded Video URL
+  const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoResponse.guid}`;
+
+  // return
+  return {
+    videoID: videoResponse.guid,
+    uploadUrl,
+    accessKey: ACCESS_KEY.streamAccessKey,
+  };
 });
