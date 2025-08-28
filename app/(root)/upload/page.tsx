@@ -5,7 +5,7 @@ import FormField from "@/components/FormField";
 import FileInput from "@/components/FileInput";
 import { useFileInput } from "@/lib/hooks/useFileInput";
 import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
-import { getVideoUploadURL } from "@/lib/action/video";
+import { getThumbnailUploadURL, getVideoUploadURL } from "@/lib/action/video";
 
 const page = () => {
   // If any error
@@ -13,6 +13,24 @@ const page = () => {
 
   // Disable or Enable submit button
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Handle File Upload to Bunny both Video and Thumbnail
+  const uploadFileToBunny = (
+    file: File,
+    uploadUrl: string,
+    accessKey: string
+  ): Promise<void> => {
+    return fetch(uploadUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": file.type,
+        AccessKey: accessKey,
+      },
+      body: file,
+    }).then((response) => {
+      if (!response.ok) throw new Error("Upload Failed");
+    });
+  };
 
   // Handle Form Submit
   const handleSubmit = async (e: FormEvent) => {
@@ -38,7 +56,7 @@ const page = () => {
 
       // After validation, finally we can proceed to uploading
 
-      // Upload video to Bunny
+      // 0 Get the Upload URL
 
       /*
       First we'll have to get the UploadURL from Bunny then we'll 
@@ -50,6 +68,29 @@ const page = () => {
         uploadUrl: videoUploadUrl, // Renaming
         accessKey: videoAccessKey, // Renaming
       } = await getVideoUploadURL();
+
+      /*
+      Check if we've videoUrl
+      */
+
+      if (!videoID || !videoAccessKey)
+        throw new Error("Failed to get video upload credentials");
+
+      // 1. Upload video to Bunny
+
+      /*
+      Pass the video file, videoUploadURL, and AcceessKey
+      */
+
+      await uploadFileToBunny(video.file, videoUploadUrl, videoAccessKey);
+
+      // 2. Get Thumbnail Upload URL
+
+      const {
+        uploadUrl: thumbnailUploadUrl,
+        cdnUrl: thumbnailAccessKey,
+        accessKey: thumbnailAccessKey, // Renaming
+      } = await getThumbnailUploadURL();
 
       /*
       Check if we've videoUrl
