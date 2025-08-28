@@ -116,5 +116,10 @@ export const saveVideoDetails = withErrorHandling(
 
     // Revalidate the home page after we insert the video
     revalidatePaths(["/"]);
+
+    // Return VideoId
+    return {
+      videoID: videoDetails.videoId,
+    };
   }
 );
