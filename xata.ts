@@ -6,7 +6,6 @@ import type {
   XataRecord,
 } from "@xata.io/client";
 
-// Full table defintions with all columns
 const tables = [
   {
     name: "account",
@@ -341,6 +340,120 @@ const tables = [
       },
     ],
   },
+  {
+    name: "videos",
+    checkConstraints: {},
+    foreignKeys: {
+      videos_user_id_user_id_fk: {
+        name: "videos_user_id_user_id_fk",
+        columns: ["user_id"],
+        referencedTable: "user",
+        referencedColumns: ["id"],
+        onDelete: "CASCADE",
+      },
+    },
+    primaryKey: ["id"],
+    uniqueConstraints: {},
+    columns: [
+      {
+        name: "created_at",
+        type: "timestamp without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "description",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "duration",
+        type: "int",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "id",
+        type: "uuid",
+        notNull: true,
+        unique: true,
+        defaultValue: "gen_random_uuid()",
+        comment: "",
+      },
+      {
+        name: "thumbnail_url",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "title",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "updated_at",
+        type: "timestamp without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "user_id",
+        type: "link",
+        link: { table: "user" },
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "video_id",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "video_url",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "views",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+      {
+        name: "visibility",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+    ],
+  },
 ] as const;
 
 export type SchemaTables = typeof tables;
@@ -358,11 +471,15 @@ export type UserRecord = User & XataRecord;
 export type Verification = InferredTypes["verification"];
 export type VerificationRecord = Verification & XataRecord;
 
+export type Videos = InferredTypes["videos"];
+export type VideosRecord = Videos & XataRecord;
+
 export type DatabaseSchema = {
   account: AccountRecord;
   session: SessionRecord;
   user: UserRecord;
   verification: VerificationRecord;
+  videos: VideosRecord;
 };
 
 const DatabaseClient = buildClient();
@@ -374,7 +491,7 @@ const defaultOptions = {
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {
   constructor(options?: BaseClientOptions) {
-    super({ ...defaultOptions, ...options }, tables); // Tanle passed to Client
+    super({ ...defaultOptions, ...options }, tables);
   }
 }
 
