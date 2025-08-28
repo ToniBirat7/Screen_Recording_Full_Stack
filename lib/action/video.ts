@@ -6,6 +6,7 @@ import { apiFetch, withErrorHandling, getEnv } from "../utils";
 import { BUNNY } from "@/constants";
 import { db } from "@/drizzle/db";
 import { videos } from "@/drizzle/schema";
+import { revalidatePath } from "next/cache";
 
 // Keys and Links
 const VIDEO_STREAM_BASE_URL = BUNNY.STREAM_BASE_URL;
@@ -15,6 +16,13 @@ const BUNNY_LIBRARY_ID = getEnv("BUNNY_LIBRARY_ID");
 const ACCESS_KEY = {
   streamAccessKey: getEnv("BUNNY_STREAM_ACCESS_API_KEY"),
   StorageAccessKey: getEnv("BUNNY_STORAGE_ACCESS_KEY"),
+};
+
+// Revalidate Paths
+const revalidatePaths = (paths: string[]) => {
+  paths.forEach((path) => {
+    revalidatePath(path);
+  });
 };
 
 // Helper Functions
@@ -103,5 +111,10 @@ export const saveVideoDetails = withErrorHandling(
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+
+    // After the insert we've to revalidate the path to make sure the user sees the latest change i.e. see the uploaded video in the UI not the older cache
+
+    // Revalidate the home page after we insert the video
+    revalidatePaths(["/"]);
   }
 );
