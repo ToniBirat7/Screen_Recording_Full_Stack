@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { auth } from "../auth";
 import { apiFetch, withErrorHandling, getEnv } from "../utils";
 import { BUNNY } from "@/constants";
+import { db } from "@/drizzle/db";
 
 // Keys and Links
 const VIDEO_STREAM_BASE_URL = BUNNY.STREAM_BASE_URL;
@@ -71,5 +72,29 @@ export const getThumbnailUploadURL = withErrorHandling(
       cdnUrl,
       accessKey: ACCESS_KEY.StorageAccessKey,
     };
+  }
+);
+
+// Save the Video URLs along with added metadata in our Database, Accepts videoDetails parameter that stores the form data
+export const saveVideoDetails = withErrorHandling(
+  async (videoDetails: VideoDetails) => {
+    // Get the user
+    const userId = await getSessionUserId();
+
+    // Use Video Details to Update the Title and Other Metadata in Bunny CDN
+    await apiFetch(
+      `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoDetails.videoId}`,
+      {
+        method: "POST",
+        bunnyType: "stream",
+        body: {
+          title: videoDetails.title,
+          description: videoDetails.description,
+        },
+      }
+    );
+
+    // Insert in the Database, with videos schema
+    await db.insert(videos);
   }
 );
