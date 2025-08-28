@@ -71,7 +71,6 @@ export const verification = pgTable("verification", {
   ),
 });
 
-// Schema for Videos
 export const videos = pgTable("videos", {
   id: uuid("id").primaryKey().defaultRandom().unique(),
   title: text("title").notNull(),
@@ -95,4 +94,5 @@ export const schema = {
   session,
   account,
   verification,
+  videos,
 };
