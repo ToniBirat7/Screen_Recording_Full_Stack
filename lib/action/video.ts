@@ -56,8 +56,20 @@ export const getVideoUploadURL = withErrorHandling(async () => {
   };
 });
 
-// Wrap with withErrorHandling function to avoid error for Thumbnail
-export const getThumbnailUploadURL = withErrorHandling(async () => {
-  // Current User from Session
-  await getSessionUserId();
-});
+// Wrap with withErrorHandling function to avoid error for Thumbnail, accepts VideoId
+export const getThumbnailUploadURL = withErrorHandling(
+  async (videoId: string) => {
+    // Current User from Session
+    await getSessionUserId();
+
+    const fileName = `${Date.now()}-${videoId}-thumbnail`;
+    const uploadUrl = `${THUMBNAIL_STORAGE_BASE_URL}/thumbnails/${fileName}`;
+    const cdnUrl = `${THUMBNAIL_CDN_URL}/thumbnails/${fileName}`;
+
+    return {
+      uploadUrl,
+      cdnUrl,
+      accessKey: ACCESS_KEY.StorageAccessKey,
+    };
+  }
+);
