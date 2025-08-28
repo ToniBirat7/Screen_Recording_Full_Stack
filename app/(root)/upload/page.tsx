@@ -5,7 +5,11 @@ import FormField from "@/components/FormField";
 import FileInput from "@/components/FileInput";
 import { useFileInput } from "@/lib/hooks/useFileInput";
 import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
-import { getThumbnailUploadURL, getVideoUploadURL } from "@/lib/action/video";
+import {
+  getThumbnailUploadURL,
+  getVideoUploadURL,
+  saveVideoDetails,
+} from "@/lib/action/video";
 
 const page = () => {
   // If any error
@@ -112,6 +116,11 @@ const page = () => {
       );
 
       // 4. Create a new DB entry for the video details (metadata) i.e. (urls, data)
+
+      await saveVideoDetails({
+        videoId,
+        thumbnailUrl: thumbnailCdnUrl,
+      });
     } catch (error) {
       console.log("Error Submitting Form");
     } finally {
