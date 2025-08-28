@@ -93,15 +93,25 @@ const page = () => {
       } = await getThumbnailUploadURL(videoID);
 
       /*
-      Check if we've videoUrl
+      Check if we've thumbnailUrl
       */
 
-      if (!videoID || !videoAccessKey)
-        throw new Error("Failed to get video upload credentials");
+      if (!thumbnailUploadUrl || !thumbnailAccessKey || !thumbnailCdnUrl)
+        throw new Error("Failed to get thumbnail upload credentials");
 
-      // Upload thumbnail to DB
-      // Attach the Thumbnail to the Video
-      // Create a new DB entry for the video details (metadata) i.e. (urls, data)
+      // 3. Upload thumbnail to DB
+
+      /*
+      If there's attach the Thumbnail to the video
+      */
+
+      await uploadFileToBunny(
+        thumbnail.file,
+        thumbnailUploadUrl,
+        thumbnailAccessKey
+      );
+
+      // 4. Create a new DB entry for the video details (metadata) i.e. (urls, data)
     } catch (error) {
       console.log("Error Submitting Form");
     } finally {
