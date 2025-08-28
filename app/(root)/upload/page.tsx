@@ -5,6 +5,7 @@ import FormField from "@/components/FormField";
 import FileInput from "@/components/FileInput";
 import { useFileInput } from "@/lib/hooks/useFileInput";
 import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
+import { getVideoUploadURL } from "@/lib/action/video";
 
 const page = () => {
   // If any error
@@ -38,6 +39,25 @@ const page = () => {
       // After validation, finally we can proceed to uploading
 
       // Upload video to Bunny
+
+      /*
+      First we'll have to get the UploadURL from Bunny then we'll 
+      use that URL to upload. Use getVideoURL function 
+      */
+
+      const {
+        videoID,
+        uploadUrl: videoUploadUrl, // Renaming
+        accessKey: videoAccessKey, // Renaming
+      } = await getVideoUploadURL();
+
+      /*
+      Check if we've videoUrl
+      */
+
+      if (!videoID || !videoAccessKey)
+        throw new Error("Failed to get video upload credentials");
+
       // Upload thumbnail to DB
       // Attach the Thumbnail to the Video
       // Create a new DB entry for the video details (metadata) i.e. (urls, data)
