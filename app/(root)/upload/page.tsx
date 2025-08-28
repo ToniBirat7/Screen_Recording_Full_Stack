@@ -88,9 +88,9 @@ const page = () => {
 
       const {
         uploadUrl: thumbnailUploadUrl,
-        cdnUrl: thumbnailAccessKey,
+        cdnUrl: thumbnailCdnUrl,
         accessKey: thumbnailAccessKey, // Renaming
-      } = await getThumbnailUploadURL();
+      } = await getThumbnailUploadURL(videoID);
 
       /*
       Check if we've videoUrl
