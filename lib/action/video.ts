@@ -40,7 +40,8 @@ const getSessionUserId = async (): Promise<string> => {
 // Wrap with withErrorHandling function to avoid error for Video
 export const getVideoUploadURL = withErrorHandling(async () => {
   // Current User from Session
-  await getSessionUserId();
+  const sessionId = await getSessionUserId();
+  console.log(`The User Session id is : ${sessionId}`);
 
   // Api call to Bunny to upload the video
   const videoResponse = await apiFetch<BunnyVideoResponse>(
@@ -55,8 +56,14 @@ export const getVideoUploadURL = withErrorHandling(async () => {
     }
   );
 
+  console.log("Response from Bunny:", videoResponse);
+  console.log("AccessKey in server:", ACCESS_KEY.streamAccessKey);
+
   // Uploaded Video URL
   const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoResponse.guid}`;
+
+  console.log("Bunny API response", videoResponse);
+  console.log("Video Upload URL", uploadUrl);
 
   // return
   return {

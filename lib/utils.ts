@@ -49,6 +49,8 @@ export const apiFetch = async <T = Record<string, unknown>>(
     bunnyType,
   } = options;
 
+  console.log("API Fetch");
+
   const key = getEnv(
     bunnyType === "stream"
       ? "BUNNY_STREAM_ACCESS_KEY"
@@ -70,6 +72,7 @@ export const apiFetch = async <T = Record<string, unknown>>(
     ...(body && { body: JSON.stringify(body) }),
   };
 
+  console.log(`Fetched ${"Hi"}`);
   const response = await fetch(url, requestOptions);
 
   if (!response.ok) {
