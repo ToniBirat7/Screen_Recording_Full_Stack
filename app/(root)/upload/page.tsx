@@ -10,6 +10,7 @@ import {
   getVideoUploadURL,
   saveVideoDetails,
 } from "@/lib/action/video";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   // If any error
@@ -17,6 +18,9 @@ const page = () => {
 
   // Disable or Enable submit button
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Router for Navigation
+  const router = useRouter();
 
   // State for the Video
   const video = useFileInput(MAX_VIDEO_SIZE);
@@ -124,11 +128,15 @@ const page = () => {
       // 4. Create a new DB entry for the video details (metadata) i.e. (urls, data)
 
       await saveVideoDetails({
-        videoId,
+        videoId: videoID,
         thumbnailUrl: thumbnailCdnUrl,
         ...formData, // Spread the form data that contains title, descirption, visibility and etc
         duration: video.duration,
       });
+
+      // 5. After Video Upload Change the Route to Specific Video Route
+
+      router.push(`/video/${videoID}`);
     } catch (error) {
       console.log("Error Submitting Form");
     } finally {
