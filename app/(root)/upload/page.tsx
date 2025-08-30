@@ -83,6 +83,11 @@ const page = () => {
         accessKey: videoAccessKey, // Renaming
       } = await getVideoUploadURL();
 
+      console.log(`Get Video URL`);
+      console.log(
+        `video ID ${videoID}, URL ${videoUploadUrl}, AccessKey ${videoAccessKey}`
+      );
+
       /*
       Check if we've videoUrl
       */
@@ -97,6 +102,8 @@ const page = () => {
       */
 
       await uploadFileToBunny(video.file, videoUploadUrl, videoAccessKey);
+
+      console.log(`Video Upload to Bunny`);
 
       // 2. Get Thumbnail Upload URL
 
@@ -113,6 +120,11 @@ const page = () => {
       if (!thumbnailUploadUrl || !thumbnailAccessKey || !thumbnailCdnUrl)
         throw new Error("Failed to get thumbnail upload credentials");
 
+      console.log(`Get Thumbnail URL`);
+      console.log(
+        `video ID ${thumbnailUploadUrl}, URL ${thumbnailCdnUrl}, AccessKey ${thumbnailAccessKey}`
+      );
+
       // 3. Upload thumbnail to DB
 
       /*
@@ -125,6 +137,8 @@ const page = () => {
         thumbnailAccessKey
       );
 
+      console.log(`Uploaded Thumb to Bunny`);
+
       // 4. Create a new DB entry for the video details (metadata) i.e. (urls, data)
 
       await saveVideoDetails({
@@ -133,6 +147,8 @@ const page = () => {
         ...formData, // Spread the form data that contains title, descirption, visibility and etc
         duration: video.duration,
       });
+
+      console.log(`Upload to Database`);
 
       // 5. After Video Upload Change the Route to Specific Video Route
 
