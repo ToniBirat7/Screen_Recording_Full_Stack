@@ -153,8 +153,10 @@ const page = () => {
       // 5. After Video Upload Change the Route to Specific Video Route
 
       router.push(`/video/${videoID}`);
+
+      console.log("Pushed Router Change");
     } catch (error) {
-      console.log("Error Submitting Form");
+      console.log(`Error Submitting Form ${error}`);
     } finally {
       // Finally set to False after submitting
       setIsSubmitting(false);
