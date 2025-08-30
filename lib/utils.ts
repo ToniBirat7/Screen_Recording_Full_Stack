@@ -29,9 +29,9 @@ export const updateURLParams = (
 
 // Get env helper function
 export const getEnv = (key: string): string => {
-  const v = process.env[key];
-  if (v === undefined) throw new Error(`Missing required env: ${key}`);
-  return v;
+  const value = process.env[key];
+  if (!value) throw new Error(`Missing required env: ${key}`);
+  return value;
 };
 
 // API fetch helper with required Bunny CDN options
@@ -49,13 +49,19 @@ export const apiFetch = async <T = Record<string, unknown>>(
     bunnyType,
   } = options;
 
-  console.log("API Fetch");
+  let key: string | undefined;
+  try {
+    key = getEnv(
+      bunnyType === "stream"
+        ? "BUNNY_STREAM_ACCESS_API_KEY"
+        : "BUNNY_STORAGE_ACCESS_KEY"
+    );
+    console.log("KEY inside try:", key);
+  } catch (err) {
+    console.error("Error inside getEnv:", err);
+  }
 
-  const key = getEnv(
-    bunnyType === "stream"
-      ? "BUNNY_STREAM_ACCESS_KEY"
-      : "BUNNY_STORAGE_ACCESS_KEY"
-  );
+  console.log(`KEY : ${key}`);
 
   const requestHeaders = {
     ...headers,
@@ -72,7 +78,6 @@ export const apiFetch = async <T = Record<string, unknown>>(
     ...(body && { body: JSON.stringify(body) }),
   };
 
-  console.log(`Fetched ${"Hi"}`);
   const response = await fetch(url, requestOptions);
 
   if (!response.ok) {
