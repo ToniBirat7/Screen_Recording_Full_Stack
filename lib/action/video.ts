@@ -60,6 +60,7 @@ export const getVideoUploadURL = withErrorHandling(async () => {
 
   // Uploaded Video URL
   const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoResponse.guid}`;
+
   console.log("Upload URL");
 
   // return
