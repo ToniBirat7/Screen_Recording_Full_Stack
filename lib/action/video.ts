@@ -41,6 +41,8 @@ const getSessionUserId = async (): Promise<string> => {
 export const getVideoUploadURL = withErrorHandling(async () => {
   // Current User from Session
   const sessionId = await getSessionUserId();
+
+  console.log("AccessKey in server:", ACCESS_KEY.streamAccessKey);
   console.log(`The User Session id is : ${sessionId}`);
 
   // Api call to Bunny to upload the video
@@ -55,9 +57,6 @@ export const getVideoUploadURL = withErrorHandling(async () => {
       },
     }
   );
-
-  console.log("Response from Bunny:", videoResponse);
-  console.log("AccessKey in server:", ACCESS_KEY.streamAccessKey);
 
   // Uploaded Video URL
   const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoResponse.guid}`;
