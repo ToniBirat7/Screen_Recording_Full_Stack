@@ -18,6 +18,12 @@ const page = () => {
   // Disable or Enable submit button
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // State for the Video
+  const video = useFileInput(MAX_VIDEO_SIZE);
+
+  // State for thumbnail
+  const thumbnail = useFileInput(MAX_THUMBNAIL_SIZE);
+
   // Handle File Upload to Bunny both Video and Thumbnail
   const uploadFileToBunny = (
     file: File,
@@ -120,6 +126,8 @@ const page = () => {
       await saveVideoDetails({
         videoId,
         thumbnailUrl: thumbnailCdnUrl,
+        ...formData, // Spread the form data that contains title, descirption, visibility and etc
+        duration: video.duration,
       });
     } catch (error) {
       console.log("Error Submitting Form");
@@ -143,12 +151,6 @@ const page = () => {
     // Change the previous data with the latest changed data
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
-
-  // State for the Video
-  const video = useFileInput(MAX_VIDEO_SIZE);
-
-  // State for thumbnail
-  const thumbnail = useFileInput(MAX_THUMBNAIL_SIZE);
 
   return (
     <div className="wrapper-md upload-page">

@@ -43,7 +43,7 @@ export const getVideoUploadURL = withErrorHandling(async () => {
   await getSessionUserId();
 
   // Api call to Bunny to upload the video
-  const videoResponse = await apiFetch(
+  const videoResponse = await apiFetch<BunnyVideoResponse>(
     `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos`,
     {
       method: "POST",
