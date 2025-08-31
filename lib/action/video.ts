@@ -7,6 +7,8 @@ import { BUNNY } from "@/constants";
 import { db } from "@/drizzle/db";
 import { videos } from "@/drizzle/schema";
 import { revalidatePath } from "next/cache";
+import aj from "@/arcjet";
+import { fixedWindow, request } from "@arcjet/next";
 
 // Keys and Links
 const VIDEO_STREAM_BASE_URL = BUNNY.STREAM_BASE_URL;
@@ -34,6 +36,30 @@ const getSessionUserId = async (): Promise<string> => {
   if (!session) throw new Error("Unauthenticated");
 
   return session.user.id;
+};
+
+// ArcJet Validator, with fingerprint
+const validateWithArcjet = async (fingerprint: string) => {
+  // Implement Rate Limiting based on User ID
+  const rateLimit = aj.withRule(
+    fixedWindow({
+      mode: "LIVE",
+      window: "1m", // Minutes
+      max: 1, // Max # of req per window
+      characteristics: ["fingerprint"], // Characteristics Based on Fingerprint
+    })
+  );
+
+  // Request
+  const req = await request();
+
+  // Create Decision
+  const decision = await rateLimit.protect(req, { fingerprint }); // Protect the request that the user is trying with fingerprint constraint
+
+  // Request is deined if the constraint is Violated
+  if (decision.isDenied()) {
+    throw new Error("Rate Limit Exceeded");
+  }
 };
 
 // Server Actions
@@ -94,6 +120,9 @@ export const saveVideoDetails = withErrorHandling(
   async (videoDetails: VideoDetails) => {
     // Get the user
     const userId = await getSessionUserId();
+
+    // Validate the Request with ArcJet Validation Function
+    await validateWithArcjet(userId);
 
     // Use Video Details to Update the Title and Other Metadata in Bunny CDN
     await apiFetch(
