@@ -45,7 +45,7 @@ export const getVideoUploadURL = withErrorHandling(async () => {
   console.log("AccessKey in server:", ACCESS_KEY.streamAccessKey);
   console.log(`The User Session id is : ${sessionId}`);
 
-  // Api call to Bunny to upload the video
+  // Api call to Bunny to get the Video Upload URL
   const videoResponse = await apiFetch<BunnyVideoResponse>(
     `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos`,
     {
