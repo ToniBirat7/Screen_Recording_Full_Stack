@@ -23,12 +23,14 @@ const rateLimit = aj.withRule(
   })
 );
 
-//
+// Implement both the Validation in Order
 const protectAuth = async (req: NextRequest): Promise<ArcjetDecision> => {
+  // Get Session Id
   const session = await auth.api.getSession({ headers: req.headers });
+
   let userId: string;
 
-  // Set Session if exists else Use IP Address of the User
+  // Set Session if exists else use IP Address of the User
   if (session?.user?.id) {
     userId = session.user.id;
   } else {
