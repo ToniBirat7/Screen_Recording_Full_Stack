@@ -41,14 +41,37 @@ const protectAuth = async (req: NextRequest): Promise<ArcjetDecision> => {
   if (req.nextUrl.pathname.startsWith("/api/auth/sign-in")) {
     const body = await req.clone().json(); // Get the body of the Request
 
-    if (typeof body.Email === "string") {
+    if (typeof body.email === "string") {
       // Check if it is String
       return emailValidation.protect(req, { email: body.email }); // Validate the Email
     }
   }
 
-  // Return
+  // Finally implement Rate Limiting and Return
   return rateLimit.protect(req, { fingerprint: userId });
 };
 
-export const { GET, POST } = toNextJsHandler(auth.handler);
+// Export for authHandler i.e. OAuth
+const authHandler = toNextJsHandler(auth.handler);
+export const { GET } = authHandler;
+
+// Export the POST Request for Middleware ArcJet Validator
+export const POST = async (req: NextRequest) => {
+  const decision = await protectAuth(req);
+
+  if (decision.isDenied()) {
+    if (decision.reason.isEmail()) {
+      throw new Error("Email Validation Failed");
+    }
+  }
+
+  if (decision.reason.isRateLimit()) {
+    throw new Error("Rate Limit Exceeded");
+  }
+
+  if (decision.reason.isShield()) {
+    throw new Error("Shield Turned on, protected agains malicious actions");
+  }
+
+  return authHandler.POST(req);
+};
