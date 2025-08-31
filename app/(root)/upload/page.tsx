@@ -30,9 +30,7 @@ const page = () => {
 
   // useEffect to only Store Video Duration if it is not null, use Video Dependency array
   useEffect(() => {
-    if (video.duration !== null || 0) {
-      setVideoDuration(video.duration);
-    }
+    if (video.duration != null) setVideoDuration(video.duration);
   }, [video.duration]);
 
   // Router for Navigation
@@ -181,7 +179,9 @@ const page = () => {
   });
 
   // Event Handler for Change in Form Data
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target; // Name is the name of the element and value will be changed value
 
     // Change the previous data with the latest changed data
