@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, use, useState } from "react";
+import React, { ChangeEvent, FormEvent, use, useEffect, useState } from "react";
 import FormField from "@/components/FormField";
 import FileInput from "@/components/FileInput";
 import { useFileInput } from "@/lib/hooks/useFileInput";
@@ -19,14 +19,24 @@ const page = () => {
   // Disable or Enable submit button
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Router for Navigation
-  const router = useRouter();
-
   // State for the Video
   const video = useFileInput(MAX_VIDEO_SIZE);
 
   // State for thumbnail
   const thumbnail = useFileInput(MAX_THUMBNAIL_SIZE);
+
+  // Video Duration State
+  const [videoDuration, setVideoDuration] = useState(0);
+
+  // useEffect to only Store Video Duration if it is not null, use Video Dependency array
+  useEffect(() => {
+    if (video.duration !== null || 0) {
+      setVideoDuration(video.duration);
+    }
+  }, [video.duration]);
+
+  // Router for Navigation
+  const router = useRouter();
 
   // Handle File Upload to Bunny both Video and Thumbnail
   const uploadFileToBunny = (
