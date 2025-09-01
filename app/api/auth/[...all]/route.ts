@@ -52,7 +52,19 @@ export const { GET } = authHandler;
 // Export the POST Request for Middleware ArcJet Validator
 export const POST = async (req: NextRequest) => {
   // Parse body once
-  const rawBody = await req.json();
+  let rawBody = null;
+
+  try {
+    rawBody = await req.json();
+  } catch (err) {
+    console.error("Failed to parse JSON body:", err);
+    return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
+      status: 400,
+    });
+  }
+
+  // Now rawBody is safe to use
+  console.log(rawBody);
 
   // Recreate a fresh Request for authHandler with the same body
   const newReq = new Request(req.url, {
