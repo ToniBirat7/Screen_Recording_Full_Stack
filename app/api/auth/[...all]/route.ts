@@ -51,7 +51,7 @@ const protectAuth = async (req: NextRequest): Promise<ArcjetDecision> => {
   return rateLimit.protect(req, { fingerprint: userId });
 };
 
-// Export for authHandler i.e. OAuth
+// Export for Better authHandler i.e. OAuth
 const authHandler = toNextJsHandler(auth.handler);
 export const { GET } = authHandler;
 
