@@ -5,7 +5,7 @@ const validate = aj
   .withRule(
     shield({
       // Shield Protection to Prevent Sus Activity
-      mode: "LIVE",
+      mode: process.env.NODE_ENV === "production" ? "LIVE" : "DRY_RUN", // If production the LIVE else DRY_RUN
     })
   )
   .withRule(

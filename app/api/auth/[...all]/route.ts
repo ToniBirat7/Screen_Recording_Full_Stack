@@ -24,30 +24,24 @@ const rateLimit = aj.withRule(
 );
 
 // Implement both the Validation in Order
-const protectAuth = async (req: NextRequest): Promise<ArcjetDecision> => {
-  // Get Session Id
+const protectAuth = async (
+  req: Request,
+  body?: any
+): Promise<ArcjetDecision> => {
   const session = await auth.api.getSession({ headers: req.headers });
 
   let userId: string;
 
-  // Set Session if exists else use IP Address of the User
   if (session?.user?.id) {
     userId = session.user.id;
   } else {
-    userId = ip(req) || "127.0.0.1"; // Or Default if not IP is Found
+    userId = ip(req) || "127.0.0.1";
   }
 
-  // If the user is trying for Sign-in
-  if (req.nextUrl.pathname.startsWith("/api/auth/sign-in")) {
-    const body = await req.clone().json(); // Get the body of the Request
-
-    if (typeof body.email === "string") {
-      // Check if it is String
-      return emailValidation.protect(req, { email: body.email }); // Validate the Email
-    }
+  if (req.url.includes("/api/auth/sign-in") && body?.email) {
+    return emailValidation.protect(req, { email: body.email });
   }
 
-  // Finally implement Rate Limiting and Return
   return rateLimit.protect(req, { fingerprint: userId });
 };
 
@@ -57,7 +51,18 @@ export const { GET } = authHandler;
 
 // Export the POST Request for Middleware ArcJet Validator
 export const POST = async (req: NextRequest) => {
-  const decision = await protectAuth(req);
+  // Parse body once
+  const rawBody = await req.json();
+
+  // Recreate a fresh Request for authHandler with the same body
+  const newReq = new Request(req.url, {
+    method: req.method,
+    headers: req.headers,
+    body: JSON.stringify(rawBody),
+  });
+
+  // Run Arcjet protection
+  const decision = await protectAuth(newReq, rawBody);
 
   console.log("Rate Limit Decision:", decision);
 
@@ -75,5 +80,6 @@ export const POST = async (req: NextRequest) => {
     }
   }
 
-  return authHandler.POST(req);
+  // Pass the recreated Request to authHandler
+  return authHandler.POST(newReq);
 };
