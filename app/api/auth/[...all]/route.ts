@@ -18,7 +18,7 @@ const rateLimit = aj.withRule(
   slidingWindow({
     mode: "LIVE",
     interval: "2m",
-    max: 2,
+    max: 5,
     characteristics: ["fingerprint"],
   })
 );
@@ -58,6 +58,8 @@ export const { GET } = authHandler;
 // Export the POST Request for Middleware ArcJet Validator
 export const POST = async (req: NextRequest) => {
   const decision = await protectAuth(req);
+
+  console.log("Rate Limit Decision:", decision);
 
   if (decision.isDenied()) {
     if (decision.reason.isEmail()) {
