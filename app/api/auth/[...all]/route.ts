@@ -65,14 +65,14 @@ export const POST = async (req: NextRequest) => {
     if (decision.reason.isEmail()) {
       throw new Error("Email Validation Failed");
     }
-  }
 
-  if (decision.reason.isRateLimit()) {
-    throw new Error("Rate Limit Exceeded");
-  }
+    if (decision.reason.isRateLimit()) {
+      throw new Error("Rate Limit Exceeded");
+    }
 
-  if (decision.reason.isShield()) {
-    throw new Error("Shield Turned on, protected agains malicious actions");
+    if (decision.reason.isShield()) {
+      throw new Error("Shield Turned on, protected against malicious actions");
+    }
   }
 
   return authHandler.POST(req);
